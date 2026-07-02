@@ -1,0 +1,119 @@
+.steps {
+  padding: 64px 0 8px;
+}
+
+.steps__title {
+  font-family: var(--serif);
+  font-size: clamp(28px, 3.6vw, 38px);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.steps__sub {
+  font-family: var(--hand);
+  font-size: 20px;
+  color: var(--text-faint);
+  margin-bottom: 44px;
+}
+
+.steps__row {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 980px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+
+.steps__row::before {
+  content: '';
+  position: absolute;
+  left: 11%;
+  right: 11%;
+  top: 27px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--accent) 35%, var(--paper)),
+    var(--accent)
+  );
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
+}
+
+.steps__row.is-in::before {
+  transform: scaleX(1);
+}
+
+.steps__item {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.steps__row.is-in .steps__item {
+  opacity: 1;
+  transform: none;
+}
+
+.steps__row.is-in .steps__item:nth-child(1) { transition-delay: 0.3s; }
+.steps__row.is-in .steps__item:nth-child(2) { transition-delay: 0.45s; }
+.steps__row.is-in .steps__item:nth-child(3) { transition-delay: 0.6s; }
+.steps__row.is-in .steps__item:nth-child(4) { transition-delay: 0.75s; }
+
+.steps__item {
+  flex: 1;
+  position: relative;
+  text-align: center;
+  padding: 0 10px;
+  z-index: 1;
+}
+
+.steps__num {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  background: var(--paper);
+  display: grid;
+  place-items: center;
+  margin: 0 auto 16px;
+  font-family: var(--serif);
+  font-size: 21px;
+}
+
+.steps__num--filled {
+  background: var(--accent);
+  color: var(--paper);
+}
+
+.steps__label {
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.steps__body {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.45;
+  max-width: 200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 720px) {
+  .steps__row {
+    flex-wrap: wrap;
+    gap: 32px 0;
+  }
+  .steps__row::before {
+    display: none;
+  }
+  .steps__item {
+    flex: 1 1 50%;
+  }
+}

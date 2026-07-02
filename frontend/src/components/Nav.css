@@ -1,0 +1,244 @@
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(13, 12, 9, 0.82);
+  backdrop-filter: saturate(140%) blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav__mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 17px;
+  display: grid;
+  place-items: center;
+}
+
+.nav__name {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.nav__links {
+  display: flex;
+  gap: 30px;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.nav__link {
+  position: relative;
+  padding: 4px 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: color 0.15s ease;
+}
+
+.nav__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.nav__link--build .nav__dot {
+  background: var(--build);
+}
+
+.nav__link--manage .nav__dot {
+  background: var(--manage);
+}
+
+.nav__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1.5px;
+  background: currentColor;
+  transition: width 0.2s ease;
+}
+
+.nav__link:hover {
+  color: var(--ink);
+}
+
+.nav__link:hover::after {
+  width: 100%;
+}
+
+/* Active route — color follows the side of the business */
+.nav__link.active::after {
+  width: 100%;
+}
+
+.nav__link--build.active {
+  color: var(--build);
+}
+
+.nav__link--manage.active {
+  color: var(--manage);
+}
+
+.nav__link--neutral.active {
+  color: var(--ink);
+}
+
+.nav__cta {
+  padding: 8px 18px;
+  font-size: 14px;
+}
+
+/* ---------- Mobile burger ---------- */
+.nav__burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 42px;
+  height: 42px;
+  margin-right: -8px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.nav__burger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  margin: 0 auto;
+  border-radius: 2px;
+  background: var(--ink);
+  transition: transform 0.28s ease, opacity 0.2s ease;
+}
+
+.nav--open .nav__burger span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.nav--open .nav__burger span:nth-child(2) {
+  opacity: 0;
+}
+.nav--open .nav__burger span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ---------- Mobile sheet ---------- */
+.nav__sheet {
+  position: fixed;
+  inset: 64px 0 0;
+  z-index: 40;
+  background: rgba(13, 12, 9, 0.96);
+  backdrop-filter: saturate(140%) blur(12px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.nav--open .nav__sheet {
+  opacity: 1;
+  visibility: visible;
+}
+
+.nav__sheet-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 22px var(--gutter) 32px;
+}
+
+.nav__sheet-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 4px;
+  font-family: var(--serif);
+  font-size: 26px;
+  border-bottom: 1px solid var(--line);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease, color 0.15s ease;
+}
+
+.nav--open .nav__sheet-link {
+  opacity: 1;
+  transform: none;
+}
+
+.nav--open .nav__sheet-link:nth-child(1) {
+  transition-delay: 0.06s;
+}
+.nav--open .nav__sheet-link:nth-child(2) {
+  transition-delay: 0.12s;
+}
+.nav--open .nav__sheet-link:nth-child(3) {
+  transition-delay: 0.18s;
+}
+
+.nav__sheet-link .nav__dot {
+  width: 11px;
+  height: 11px;
+}
+
+.nav__sheet-link.active {
+  color: var(--ink);
+}
+.nav__sheet-link.nav__link--build.active {
+  color: var(--build);
+}
+.nav__sheet-link.nav__link--manage.active {
+  color: var(--manage);
+}
+
+.nav__sheet-cta {
+  margin-top: 22px;
+  align-self: flex-start;
+  padding: 13px 26px;
+  font-size: 16px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease 0.24s, transform 0.4s ease 0.24s;
+}
+
+.nav--open .nav__sheet-cta {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 720px) {
+  .nav__links,
+  .nav__cta {
+    display: none;
+  }
+  .nav__burger {
+    display: flex;
+  }
+}
+
+@media (min-width: 721px) {
+  .nav__sheet {
+    display: none;
+  }
+}

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#e9e5dc; font-family:'Inter', system-ui, sans-serif; color:#211f1b; -webkit-font-smoothing:antialiased; }
+  .serif { font-family:'Fraunces', Georgia, serif; }
+  .hand { font-family:'Caveat', cursive; }
+  .ln { height:9px; border-radius:5px; background:#ddd8cd; }
+  .ph { background:repeating-linear-gradient(45deg,#efece5,#efece5 7px,#e6e2d8 7px,#e6e2d8 14px); border:1px solid #d3cdc0; display:flex; align-items:center; justify-content:center; color:#938c7e; font:11px/1.4 ui-monospace,'SF Mono',monospace; letter-spacing:.04em; text-align:center; }
+  .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; border-radius:999px; padding:13px 22px; font-size:15px; font-weight:500; border:1.5px solid transparent; cursor:pointer; line-height:1; text-decoration:none; }
+  .chip { display:inline-flex; align-items:center; gap:7px; border:1.3px solid; border-radius:999px; padding:7px 14px; font-size:13px; font-weight:500; background:#fbfaf7; }
+  .tag { display:inline-flex; align-items:center; gap:5px; border:1.4px solid; border-radius:999px; padding:2px 10px; font-size:11px; font-weight:600; letter-spacing:.03em; text-transform:uppercase; }
+  .heroGrid { display:grid; grid-template-columns:1.02fr 0.98fr; gap:54px; align-items:center; }
+  .trackGrid { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
+  .workGrid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  .footCols { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:36px; }
+  .navlink { font-size:15px; color:#3a352f; display:inline-flex; align-items:center; gap:7px; }
+  @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.35; transform:scale(.72); } }
+  @media (max-width:780px){
+    .heroGrid,.trackGrid,.workGrid,.footCols { grid-template-columns:1fr !important; gap:30px !important; }
+    .navlinks { display:none !important; }
+  }
+</style>
+</helmet>
+
+<div style="max-width:1180px; margin:0 auto; background:#fbfaf7; box-shadow:0 1px 4px rgba(0,0,0,.08), 0 20px 50px rgba(0,0,0,.06); margin-top:30px; margin-bottom:60px; overflow:hidden; box-sizing:border-box;">
+
+  <!-- ============ 1 · NAV ============ -->
+  <div style="display:flex; align-items:center; justify-content:space-between; padding:22px 56px; border-bottom:1px solid #eceadf;">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <div class="serif" style="width:32px; height:32px; border-radius:8px; background:#211f1b; color:#fbfaf7; display:flex; align-items:center; justify-content:center; font-size:19px; font-weight:500;">N</div>
+      <div class="serif" style="font-size:21px; font-weight:500;">Northbeam</div>
+    </div>
+    <div class="navlinks" style="display:flex; align-items:center; gap:30px;">
+      <span class="navlink"><span style="width:8px; height:8px; border-radius:50%; background:#c2703d;"></span>Build</span>
+      <span class="navlink"><span style="width:8px; height:8px; border-radius:50%; background:#3d6f7a;"></span>Manage</span>
+      <span class="navlink">Work</span>
+      <a class="btn" style="background:#211f1b; color:#fbfaf7; padding:10px 18px; font-size:14px;">Talk to us</a>
+    </div>
+  </div>
+
+  <!-- ============ 2 · HERO ============ -->
+  <div style="padding:72px 56px 64px;">
+    <div class="heroGrid">
+      <div>
+        <div class="hand" style="font-size:21px; color:#8a8476; margin-bottom:14px;">one partner, the whole life of your software</div>
+        <h1 class="serif" style="font-size:58px; line-height:1.04; font-weight:500; margin:0 0 22px; letter-spacing:-.01em;">Build it, or run it.<br>We do both, properly.</h1>
+        <p style="font-size:18px; line-height:1.6; color:#5a554c; max-width:480px; margin:0 0 32px;">We&rsquo;re the senior engineering team behind brand-new products <em>and</em> the live systems other people already depend on. Two jobs, one team.</p>
+        <div style="display:flex; gap:13px; flex-wrap:wrap;">
+          <a class="btn" style="background:#c2703d; color:#fff;">Start a build</a>
+          <a class="btn" style="border-color:#211f1b; color:#211f1b; background:transparent;">Hand over your stack</a>
+        </div>
+      </div>
+
+      <!-- stacked cards visual -->
+      <div style="position:relative; height:360px;">
+        <!-- BUILD card -->
+        <div style="position:absolute; top:0; left:0; width:300px; background:#fbfaf7; border:1px solid #e6e0d4; border-radius:16px; box-shadow:0 14px 34px rgba(0,0,0,.09); padding:22px; z-index:2;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;">
+            <span class="tag" style="border-color:#c2703d; color:#c2703d;">Build</span>
+            <span style="font-size:12px; color:#9a9486;">in progress</span>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:15px;">
+            <div>
+              <div style="display:flex; justify-content:space-between; font-size:12.5px; color:#6a6459; margin-bottom:6px;"><span>Web app</span><span>85%</span></div>
+              <div style="height:7px; border-radius:5px; background:#ece6da;"><div style="width:85%; height:100%; border-radius:5px; background:#c2703d;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex; justify-content:space-between; font-size:12.5px; color:#6a6459; margin-bottom:6px;"><span>ML model</span><span>60%</span></div>
+              <div style="height:7px; border-radius:5px; background:#ece6da;"><div style="width:60%; height:100%; border-radius:5px; background:#c2703d;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex; justify-content:space-between; font-size:12.5px; color:#6a6459; margin-bottom:6px;"><span>Launch readiness</span><span>40%</span></div>
+              <div style="height:7px; border-radius:5px; background:#ece6da;"><div style="width:40%; height:100%; border-radius:5px; background:#c2703d;"></div></div>
+            </div>
+          </div>
+        </div>
+        <!-- MANAGE card -->
+        <div style="position:absolute; bottom:0; right:0; width:300px; background:#fbfaf7; border:1px solid #e6e0d4; border-radius:16px; box-shadow:0 14px 34px rgba(0,0,0,.09); padding:22px; z-index:1;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+            <span class="tag" style="border-color:#3d6f7a; color:#3d6f7a;">Manage</span>
+            <span style="font-size:12px; color:#3d6f7a; display:inline-flex; align-items:center; gap:6px;"><span style="width:8px; height:8px; border-radius:50%; background:#3d6f7a; animation:pulse 1.8s ease-in-out infinite;"></span>live</span>
+          </div>
+          <svg viewBox="0 0 264 56" style="width:100%; height:56px; display:block;">
+            <polyline points="0,34 20,30 38,36 56,24 74,31 92,19 110,28 128,22 146,33 164,17 182,26 200,21 220,29 240,20 264,25" fill="none" stroke="#3d6f7a" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"></polyline>
+            <circle cx="264" cy="25" r="4.5" fill="#3d6f7a" style="animation:pulse 1.8s ease-in-out infinite; transform-origin:264px 25px;"></circle>
+          </svg>
+          <div style="display:flex; gap:22px; margin-top:14px;">
+            <div><div class="serif" style="font-size:22px; font-weight:500;">99.98%</div><div style="font-size:11.5px; color:#8a8476;">uptime</div></div>
+            <div><div class="serif" style="font-size:22px; font-weight:500;">0</div><div style="font-size:11.5px; color:#8a8476;">breaches</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 3 · TRUST STRIP ============ -->
+  <div style="border-top:1px solid #eceadf; border-bottom:1px solid #eceadf; background:#f5f2ea;">
+    <div style="display:flex; align-items:stretch; padding:0 56px;">
+      <div style="flex:1; text-align:center; padding:24px 12px;"><div class="serif" style="font-size:28px; font-weight:500;">40+</div><div style="font-size:13px; color:#7c766a; margin-top:3px;">products shipped</div></div>
+      <div style="width:1px; background:#e3ded2;"></div>
+      <div style="flex:1; text-align:center; padding:24px 12px;"><div class="serif" style="font-size:28px; font-weight:500;">99.98%</div><div style="font-size:13px; color:#7c766a; margin-top:3px;">uptime managed</div></div>
+      <div style="width:1px; background:#e3ded2;"></div>
+      <div style="flex:1; text-align:center; padding:24px 12px;"><div class="serif" style="font-size:28px; font-weight:500;">0</div><div style="font-size:13px; color:#7c766a; margin-top:3px;">breaches</div></div>
+      <div style="width:1px; background:#e3ded2;"></div>
+      <div style="flex:1; text-align:center; padding:24px 12px;"><div class="serif" style="font-size:28px; font-weight:500;">One team</div><div style="font-size:13px; color:#7c766a; margin-top:3px;">build &amp; run</div></div>
+    </div>
+  </div>
+
+  <!-- ============ 4 · TWO TRACKS ============ -->
+  <!-- BUILD track -->
+  <div style="padding:74px 56px 60px;">
+    <div class="trackGrid">
+      <div>
+        <span class="tag" style="border-color:#c2703d; color:#c2703d; margin-bottom:18px;">Build</span>
+        <h2 class="serif" style="font-size:38px; line-height:1.08; font-weight:500; margin:0 0 16px; letter-spacing:-.01em;">You have an idea.<br>We have the team.</h2>
+        <p style="font-size:16.5px; line-height:1.6; color:#5a554c; max-width:430px; margin:0 0 24px;">Zero to a live product, end to end &mdash; design, engineering, models, infrastructure. One crew that owns the whole thing.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:28px;">
+          <span class="chip" style="border-color:#e0bda4; color:#a3653e;">Web apps</span>
+          <span class="chip" style="border-color:#e0bda4; color:#a3653e;">Mobile</span>
+          <span class="chip" style="border-color:#e0bda4; color:#a3653e;">ML models</span>
+          <span class="chip" style="border-color:#e0bda4; color:#a3653e;">AI / deep learning</span>
+        </div>
+        <a style="font-size:15px; font-weight:600; color:#c2703d; display:inline-flex; align-items:center; gap:8px; text-decoration:none;">Start a build &rarr;</a>
+      </div>
+      <div class="ph" style="height:300px; border-radius:14px;">build visual &mdash; product screens / repo</div>
+    </div>
+  </div>
+
+  <!-- MANAGE track -->
+  <div style="padding:14px 56px 74px;">
+    <div class="trackGrid">
+      <div class="ph" style="height:300px; border-radius:14px; border-color:#bcccce; background:repeating-linear-gradient(45deg,#eef3f3,#eef3f3 7px,#e4ecec 7px,#e4ecec 14px); color:#5f7a80;">manage visual &mdash; live ops dashboard</div>
+      <div>
+        <span class="tag" style="border-color:#3d6f7a; color:#3d6f7a; margin-bottom:18px;">Manage</span>
+        <h2 class="serif" style="font-size:38px; line-height:1.08; font-weight:500; margin:0 0 16px; letter-spacing:-.01em;">You have a product.<br>We keep it healthy.</h2>
+        <p style="font-size:16.5px; line-height:1.6; color:#5a554c; max-width:430px; margin:0 0 24px;">Become your outsourced tech department. We take the pager, harden the stack, and make it better month over month.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:28px;">
+          <span class="chip" style="border-color:#a9c2c6; color:#3d6f7a;">Security</span>
+          <span class="chip" style="border-color:#a9c2c6; color:#3d6f7a;">Databases</span>
+          <span class="chip" style="border-color:#a9c2c6; color:#3d6f7a;">System design</span>
+          <span class="chip" style="border-color:#a9c2c6; color:#3d6f7a;">UI / UX</span>
+        </div>
+        <a style="font-size:15px; font-weight:600; color:#3d6f7a; display:inline-flex; align-items:center; gap:8px; text-decoration:none;">Hand it over &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 5 · LIFECYCLE ============ -->
+  <div style="padding:70px 56px; background:#211f1b; color:#fbfaf7;">
+    <div style="text-align:center; max-width:620px; margin:0 auto 50px;">
+      <span class="hand" style="font-size:20px; color:#c2703d;">the difference</span>
+      <h2 class="serif" style="font-size:40px; line-height:1.08; font-weight:500; margin:8px 0 14px;">One team. The whole lifecycle.</h2>
+      <p style="font-size:16.5px; line-height:1.6; color:#b6b0a4; margin:0;">Most agencies stop at launch and hand you the keys. We don&rsquo;t &mdash; build flows straight into run, as one continuous engagement.</p>
+    </div>
+
+    <div style="max-width:880px; margin:0 auto; position:relative;">
+      <!-- the bar -->
+      <div style="display:flex; height:16px; border-radius:999px; overflow:hidden;">
+        <div style="width:44%; background:#c2703d;"></div>
+        <div style="width:56%; background:#3d6f7a;"></div>
+      </div>
+      <!-- launch node -->
+      <div style="position:absolute; left:44%; top:8px; transform:translate(-50%,-50%); width:26px; height:26px; border-radius:50%; background:#fbfaf7; border:3px solid #211f1b; box-shadow:0 0 0 2px #fbfaf7;"></div>
+      <div style="position:absolute; left:44%; top:34px; transform:translateX(-50%); font-size:12px; font-weight:600; color:#fbfaf7; white-space:nowrap;">Launch</div>
+      <!-- agencies stop note -->
+      <div class="hand" style="position:absolute; left:44%; top:-52px; transform:translateX(-50%); text-align:center; color:#e0a883; font-size:18px; white-space:nowrap;">most agencies stop here &#10007;<div style="font-size:22px; line-height:1; margin-top:2px;">&darr;</div></div>
+
+      <!-- phase labels -->
+      <div style="display:flex; margin-top:62px;">
+        <div style="width:44%; text-align:center;">
+          <div class="tag" style="border-color:#c2703d; color:#e0a883; display:inline-flex;">Build</div>
+          <div style="font-size:14px; color:#cfc9bd; margin-top:12px; letter-spacing:.02em;">Scope &middot; Design &middot; Build</div>
+        </div>
+        <div style="width:56%; text-align:center;">
+          <div class="tag" style="border-color:#3d6f7a; color:#9cc0c7; display:inline-flex;">Manage</div>
+          <div style="font-size:14px; color:#cfc9bd; margin-top:12px; letter-spacing:.02em;">Run &middot; Secure &middot; Improve &middot; Forever</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 6 · PROCESS ============ -->
+  <div style="padding:74px 56px;">
+    <div style="text-align:center; margin-bottom:50px;">
+      <h2 class="serif" style="font-size:38px; font-weight:500; margin:0 0 8px;">Four steps. No mystery.</h2>
+      <p class="hand" style="font-size:20px; color:#8a8476; margin:0;">you always know exactly where things stand</p>
+    </div>
+    <div style="position:relative; max-width:920px; margin:0 auto;">
+      <div style="position:absolute; left:11%; right:11%; top:27px; height:2px; background:linear-gradient(90deg,#c2703d,#3d6f7a);"></div>
+      <div style="display:flex; justify-content:space-between; position:relative;">
+        <div style="flex:1; text-align:center; padding:0 8px;">
+          <div class="serif" style="width:54px; height:54px; border-radius:50%; background:#fbfaf7; border:2px solid #211f1b; display:flex; align-items:center; justify-content:center; font-size:21px; margin:0 auto 16px; position:relative; z-index:1;">1</div>
+          <div class="serif" style="font-size:19px; font-weight:500; margin-bottom:6px;">Talk</div>
+          <div style="font-size:13.5px; color:#7c766a; line-height:1.45;">Tell us where you are. No pitch, no fluff.</div>
+        </div>
+        <div style="flex:1; text-align:center; padding:0 8px;">
+          <div class="serif" style="width:54px; height:54px; border-radius:50%; background:#fbfaf7; border:2px solid #211f1b; display:flex; align-items:center; justify-content:center; font-size:21px; margin:0 auto 16px; position:relative; z-index:1;">2</div>
+          <div class="serif" style="font-size:19px; font-weight:500; margin-bottom:6px;">Scope</div>
+          <div style="font-size:13.5px; color:#7c766a; line-height:1.45;">We map the work and what it really takes.</div>
+        </div>
+        <div style="flex:1; text-align:center; padding:0 8px;">
+          <div class="serif" style="width:54px; height:54px; border-radius:50%; background:#fbfaf7; border:2px solid #211f1b; display:flex; align-items:center; justify-content:center; font-size:21px; margin:0 auto 16px; position:relative; z-index:1;">3</div>
+          <div class="serif" style="font-size:19px; font-weight:500; margin-bottom:6px;">Ship</div>
+          <div style="font-size:13.5px; color:#7c766a; line-height:1.45;">We build and launch &mdash; live, in real hands.</div>
+        </div>
+        <div style="flex:1; text-align:center; padding:0 8px;">
+          <div class="serif" style="width:54px; height:54px; border-radius:50%; background:#3d6f7a; border:2px solid #3d6f7a; color:#fbfaf7; display:flex; align-items:center; justify-content:center; font-size:21px; margin:0 auto 16px; position:relative; z-index:1;">4</div>
+          <div class="serif" style="font-size:19px; font-weight:500; margin-bottom:6px;">Run</div>
+          <div style="font-size:13.5px; color:#7c766a; line-height:1.45;">We keep it alive, secure, and improving.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 7 · WORK TEASER ============ -->
+  <div style="padding:14px 56px 74px;">
+    <div style="display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:30px;">
+      <h2 class="serif" style="font-size:34px; font-weight:500; margin:0;">Work that&rsquo;s live right now.</h2>
+      <a style="font-size:15px; font-weight:600; color:#211f1b; text-decoration:none; display:inline-flex; align-items:center; gap:7px;">See all work &rarr;</a>
+    </div>
+    <div class="workGrid">
+
+      <div style="border:1px solid #e6e0d4; border-radius:14px; overflow:hidden; background:#fbfaf7;">
+        <div class="ph" style="height:150px; border:none; border-bottom:1px solid #e6e0d4;">this site</div>
+        <div style="padding:20px;">
+          <div style="display:flex; gap:6px; margin-bottom:13px;">
+            <span class="tag" style="border-color:#c2703d; color:#c2703d;">Built</span>
+            <span class="tag" style="border-color:#3d6f7a; color:#3d6f7a;">Managed</span>
+          </div>
+          <div class="serif" style="font-size:20px; font-weight:500; margin-bottom:7px;">This very website.</div>
+          <p style="font-size:14px; color:#6a6459; line-height:1.5; margin:0 0 16px;">You&rsquo;re on it right now &mdash; we built it and we run it.</p>
+          <div class="serif" style="font-size:26px; font-weight:500;">99.98%<span style="font-size:13px; font-weight:400; color:#8a8476; font-family:'Inter',sans-serif;"> uptime</span></div>
+        </div>
+      </div>
+
+      <div style="border:1px solid #e6e0d4; border-radius:14px; overflow:hidden; background:#fbfaf7;">
+        <div class="ph" style="height:150px; border:none; border-bottom:1px solid #e6e0d4;">fintech app</div>
+        <div style="padding:20px;">
+          <div style="display:flex; gap:6px; margin-bottom:13px;">
+            <span class="tag" style="border-color:#c2703d; color:#c2703d;">Built</span>
+          </div>
+          <div class="serif" style="font-size:20px; font-weight:500; margin-bottom:7px;">Fintech payments app.</div>
+          <p style="font-size:14px; color:#6a6459; line-height:1.5; margin:0 0 16px;">Idea to a regulated, live product with real users.</p>
+          <div class="serif" style="font-size:26px; font-weight:500;">0 &rarr; launch<span style="font-size:13px; font-weight:400; color:#8a8476; font-family:'Inter',sans-serif;"> in 14 weeks</span></div>
+        </div>
+      </div>
+
+      <div style="border:1px solid #e6e0d4; border-radius:14px; overflow:hidden; background:#fbfaf7;">
+        <div class="ph" style="height:150px; border:none; border-bottom:1px solid #e6e0d4; border-color:#bcccce; background:repeating-linear-gradient(45deg,#eef3f3,#eef3f3 7px,#e4ecec 7px,#e4ecec 14px); color:#5f7a80;">logistics platform</div>
+        <div style="padding:20px;">
+          <div style="display:flex; gap:6px; margin-bottom:13px;">
+            <span class="tag" style="border-color:#3d6f7a; color:#3d6f7a;">Managed</span>
+          </div>
+          <div class="serif" style="font-size:20px; font-weight:500; margin-bottom:7px;">Legacy logistics platform.</div>
+          <p style="font-size:14px; color:#6a6459; line-height:1.5; margin:0 0 16px;">We took over a fragile system and steadied it.</p>
+          <div class="serif" style="font-size:26px; font-weight:500;">&minus;63%<span style="font-size:13px; font-weight:400; color:#8a8476; font-family:'Inter',sans-serif;"> incident rate</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ 8 · CTA BAND ============ -->
+  <div style="padding:64px 56px; background:#211f1b; color:#fbfaf7; text-align:center;">
+    <h2 class="serif" style="font-size:40px; line-height:1.1; font-weight:500; margin:0 0 12px;">Not sure which side you need?</h2>
+    <p style="font-size:18px; color:#b6b0a4; margin:0 0 30px;">Tell us where you are. We&rsquo;ll tell you what we&rsquo;d do.</p>
+    <div style="display:flex; gap:16px; justify-content:center; align-items:center; flex-wrap:wrap;">
+      <a class="btn" style="background:#fbfaf7; color:#211f1b; padding:14px 26px; font-size:16px;">Book a call</a>
+      <span style="font-size:16px; color:#cfc9bd;">or <span style="text-decoration:underline; text-underline-offset:4px;">hello@northbeam.co</span></span>
+    </div>
+  </div>
+
+  <!-- ============ 9 · FOOTER ============ -->
+  <div style="padding:54px 56px 30px;">
+    <div class="footCols">
+      <div>
+        <div style="display:flex; align-items:center; gap:11px; margin-bottom:14px;">
+          <div class="serif" style="width:30px; height:30px; border-radius:8px; background:#211f1b; color:#fbfaf7; display:flex; align-items:center; justify-content:center; font-size:18px;">N</div>
+          <div class="serif" style="font-size:20px; font-weight:500;">Northbeam</div>
+        </div>
+        <div class="hand" style="font-size:21px; color:#8a8476;">Build it, or run it.</div>
+      </div>
+      <div>
+        <div style="font-size:13px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:#c2703d; margin-bottom:14px;">Build</div>
+        <div style="display:flex; flex-direction:column; gap:10px; font-size:14.5px; color:#5a554c;">
+          <span>Web apps</span><span>Mobile apps</span><span>ML models</span><span>AI / deep learning</span>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:13px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:#3d6f7a; margin-bottom:14px;">Manage</div>
+        <div style="display:flex; flex-direction:column; gap:10px; font-size:14.5px; color:#5a554c;">
+          <span>Security</span><span>Databases</span><span>System design</span><span>UI / UX</span>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:13px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:#8a8476; margin-bottom:14px;">Company</div>
+        <div style="display:flex; flex-direction:column; gap:10px; font-size:14.5px; color:#5a554c;">
+          <span>Work</span><span>Contact</span>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid #eceadf; margin-top:40px; padding-top:20px; display:flex; justify-content:space-between; align-items:center; font-size:13px; color:#9a9486;">
+      <span>&copy; 2026 Northbeam</span>
+      <span>Build &middot; Manage &middot; Work &middot; Contact</span>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

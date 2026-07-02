@@ -1,0 +1,153 @@
+.wt {
+  padding-block: clamp(48px, 7vw, 74px);
+}
+
+.wt__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.wt__title {
+  font-size: clamp(26px, 3.2vw, 34px);
+  margin: 0;
+}
+
+.wt__all {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+}
+
+.wt__all span {
+  transition: transform 0.18s ease;
+}
+
+.wt__all:hover span {
+  transform: translateX(4px);
+}
+
+.wt__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 720px;
+  gap: 22px;
+}
+
+.wt__card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--bg-elevated);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.wt__card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
+}
+
+.wt__shot {
+  height: 150px;
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.wt__body {
+  padding: 20px;
+}
+
+.wt__tags {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 13px;
+}
+
+.wt__cardhead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.wt__cardhead .wt__tags {
+  margin: 0;
+}
+
+.wt__status {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12.5px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.wt__status::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.wt__status--live,
+.wt__status--managed {
+  color: var(--manage);
+}
+
+.wt__status--live::before,
+.wt__status--managed::before {
+  background: var(--manage);
+}
+
+.wt__status--build {
+  color: var(--build);
+}
+
+.wt__status--build::before {
+  background: var(--build);
+}
+
+.wt__cardtitle {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0 0 7px;
+}
+
+.wt__blurb {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0 0 16px;
+}
+
+.wt__metric {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.wt__metric span {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-faint);
+}
+
+@media (max-width: 820px) {
+  .wt__grid {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+  }
+}

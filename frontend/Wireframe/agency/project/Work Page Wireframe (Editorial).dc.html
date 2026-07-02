@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#e9e5dc; font-family:'Inter', system-ui, sans-serif; color:#211f1b; -webkit-font-smoothing:antialiased; }
+  .serif { font-family:'Fraunces', Georgia, serif; }
+  .hand { font-family:'Caveat', cursive; }
+  .ln { height:9px; border-radius:5px; background:#ddd8cd; }
+  .ph { background:repeating-linear-gradient(45deg,#efece5,#efece5 7px,#e6e2d8 7px,#e6e2d8 14px); border:1px solid #d3cdc0; display:flex; align-items:center; justify-content:center; color:#938c7e; font:11px/1.4 ui-monospace,'SF Mono',monospace; letter-spacing:.04em; text-align:center; }
+  .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; border-radius:999px; padding:13px 22px; font-size:15px; font-weight:500; border:1.5px solid transparent; cursor:pointer; line-height:1; text-decoration:none; }
+  .tag { display:inline-flex; align-items:center; gap:5px; border:1.4px solid; border-radius:999px; padding:2px 10px; font-size:11px; font-weight:600; letter-spacing:.03em; text-transform:uppercase; }
+  .sig { display:inline-flex; align-items:center; gap:8px; border:1.3px solid #d8d2c5; border-radius:999px; padding:7px 14px; font-size:13px; color:#5a554c; background:#fbfaf7; }
+  .navlink { font-size:15px; color:#3a352f; display:inline-flex; align-items:center; gap:7px; }
+  .trackGrid { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; }
+  .prodGrid { display:grid; grid-template-columns:repeat(2,1fr); gap:22px; }
+  .modelGrid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  .footCols { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:36px; }
+  @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.35; transform:scale(.72); } }
+  @media (max-width:780px){
+    .trackGrid,.prodGrid,.modelGrid,.footCols { grid-template-columns:1fr !important; gap:28px !important; }
+    .navlinks { display:none !important; }
+  }
+</style>
+</helmet>
+
+<div style="max-width:1180px; margin:30px auto 60px; background:#fbfaf7; box-shadow:0 1px 4px rgba(0,0,0,.08), 0 20px 50px rgba(0,0,0,.06); overflow:hidden; box-sizing:border-box;">
+
+  <!-- ============ 1 · NAV ============ -->
+  <div style="display:flex; align-items:center; justify-content:space-between; padding:22px 56px; border-bottom:1px solid #eceadf;">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <div class="serif" style="width:32px; height:32px; border-radius:8px; background:#211f1b; color:#fbfaf7; display:flex; align-items:center; justify-content:center; font-size:19px; font-weight:500;">N</div>
+      <div class="serif" style="font-size:21px; font-weight:500;">Northbeam</div>
+    </div>
+    <div class="navlinks" style="display:flex; align-items:center; gap:30px;">
+      <span class="navlink"><span style="width:8px; height:8px; border-radius:50%; background:#c2703d;"></span>Build</span>
+      <span class="navlink"><span style="width:8px; height:8px; border-radius:50%; background:#3d6f7a;"></span>Manage</span>
+      <span class="navlink" style="color:#211f1b; font-weight:600; text-decoration:underline; text-underline-offset:6px; text-decoration-thickness:2px;">Work</span>
+      <a class="btn" style="background:#211f1b; color:#fbfaf7; padding:10px 18px; font-size:14px;">Talk to us</a>
+    </div>
+  </div>
+
+  <!-- ============ 2 · HERO ============ -->
+  <div style="padding:70px 56px 40px; text-align:center;">
+    <span class="tag" style="border-color:#cfc8ba; color:#8a8476;">Our work</span>
+    <h1 class="serif" style="font-size:60px; line-height:1.02; font-weight:500; margin:20px auto 18px; letter-spacing:-.01em; max-width:760px;">Work that&rsquo;s live and running.</h1>
+    <p style="font-size:18.5px; line-height:1.6; color:#5a554c; max-width:580px; margin:0 auto;">Everything here is in production right now &mdash; not a concept reel. Some we built. Some we manage. A few, both.</p>
+    <div class="hand" style="margin-top:26px; font-size:21px; color:#a3653e;">&darr; you&rsquo;re looking at one &mdash; we built this site, and we run it</div>
+  </div>
+
+  <!-- ============ 3 · FILTER BAR ============ -->
+  <div style="display:flex; justify-content:center; padding:8px 56px 36px;">
+    <div style="display:inline-flex; border:1px solid #e3ddd0; border-radius:999px; padding:5px; background:#f5f2ea; gap:3px;">
+      <span style="padding:9px 19px; border-radius:999px; background:#211f1b; color:#fbfaf7; font-size:14px; font-weight:500;">All</span>
+      <span style="padding:9px 19px; border-radius:999px; color:#a3653e; font-size:14px; display:inline-flex; align-items:center; gap:7px;"><span style="width:7px; height:7px; border-radius:50%; background:#c2703d;"></span>Built</span>
+      <span style="padding:9px 19px; border-radius:999px; color:#3d6f7a; font-size:14px; display:inline-flex; align-items:center; gap:7px;"><span style="width:7px; height:7px; border-radius:50%; background:#3d6f7a;"></span>Managed</span>
+      <span style="padding:9px 19px; border-radius:999px; color:#5a554c; font-size:14px;">Built &amp; Managed</span>
+    </div>
+  </div>
+
+  <!-- ============ 4 · FEATURED CASE ============ -->
+  <div style="padding:54px 56px; background:#f5f2ea; border-top:1px solid #eceadf; border-bottom:1px solid #eceadf;">
+    <div class="trackGrid">
+      <div>
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:18px;">
+          <span class="tag" style="border-color:#c2703d; color:#c2703d;">Built</span>
+          <span class="tag" style="border-color:#3d6f7a; color:#3d6f7a;">Managed</span>
+          <span class="hand" style="font-size:17px; color:#8a8476;">&mdash; the only case with both</span>
+        </div>
+        <h2 class="serif" style="font-size:42px; line-height:1.06; font-weight:500; margin:0 0 16px; letter-spacing:-.01em;">This very website.</h2>
+        <p style="font-size:16.5px; line-height:1.62; color:#5a554c; max-width:460px; margin:0 0 26px;">We designed it, built it from scratch, and run it day to day &mdash; the whole lifecycle in a single case. It&rsquo;s the clearest proof we can give: you&rsquo;re standing inside the demo.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:10px;">
+          <span class="sig"><span style="width:8px; height:8px; border-radius:50%; background:#3d6f7a; animation:pulse 1.8s ease-in-out infinite;"></span>99.98% uptime</span>
+          <span class="sig">last deploy &middot; 2h ago</span>
+          <span class="sig"><span style="width:8px; height:8px; border-radius:50%; background:#3d6f7a;"></span>0 breaches</span>
+        </div>
+      </div>
+
+      <!-- browser window mock -->
+      <div style="border:1px solid #e0dace; border-radius:14px; overflow:hidden; background:#fbfaf7; box-shadow:0 16px 40px rgba(0,0,0,.10);">
+        <div style="display:flex; align-items:center; gap:14px; padding:13px 16px; border-bottom:1px solid #eceadf; background:#f0ece3;">
+          <div style="display:flex; gap:7px;">
+            <span style="width:11px; height:11px; border-radius:50%; background:#d9d3c6;"></span>
+            <span style="width:11px; height:11px; border-radius:50%; background:#d9d3c6;"></span>
+            <span style="width:11px; height:11px; border-radius:50%; background:#d9d3c6;"></span>
+          </div>
+          <div style="flex:1; background:#fbfaf7; border:1px solid #e6e0d4; border-radius:7px; padding:6px 13px; font-size:12.5px; color:#8a8476; text-align:center;">northbeam.dev</div>
+        </div>
+        <div style="padding:20px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:22px;">
+            <div style="display:flex; align-items:center; gap:7px;"><div style="width:16px; height:16px; border-radius:4px; background:#211f1b;"></div><div class="ln" style="width:60px; height:7px;"></div></div>
+            <div style="display:flex; gap:10px;"><div class="ln" style="width:26px; height:6px;"></div><div class="ln" style="width:26px; height:6px;"></div><div class="ln" style="width:26px; height:6px;"></div></div>
+          </div>
+          <div class="serif" style="font-size:22px; font-weight:500; line-height:1.1; margin-bottom:12px;">Build it, or run it.</div>
+          <div class="ln" style="width:85%; margin-bottom:8px;"></div>
+          <div class="ln" style="width:65%; margin-bottom:18px;"></div>
+          <div style="display:flex; gap:9px;">
+            <div style="background:#c2703d; height:26px; width:96px; border-radius:999px;"></div>
+            <div style="border:1.5px solid #cfc8ba; height:23px; width:110px; border-radius:999px;"></div>
+          </div>
+          <div style="display:flex; gap:10px; margin-top:18px;">
+            <div style="flex:1; height:54px; border-radius:8px; background:#f4ece5; border:1px solid #ecd9cb;"></div>
+            <div style="flex:1; height:54px; border-radius:8px; background:#eaf1f1; border:1px solid #d3e2e2;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 5 · PRODUCTS GRID ============ -->
+  <div style="padding:72px 56px 20px;">
+    <div style="margin-bottom:32px;">
+      <h2 class="serif" style="font-size:36px; font-weight:500; margin:0 0 6px;">Products we&rsquo;ve shipped.</h2>
+      <p class="hand" style="font-size:20px; color:#8a8476; margin:0;">apps and platforms, all in production</p>
+    </div>
+    <div class="prodGrid">
+
+      <!-- Fintech -->
+      <div style="border:1px solid #e6e0d4; border-radius:14px; overflow:hidden; background:#fbfaf7;">
+        <div class="ph" style="height:158px; border:none; border-bottom:1px solid #e6e0d4;">fintech payments app</div>
+        <div style="padding:22px;">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
+            <span class="tag" style="border-color:#c2703d; color:#c2703d;">Built</span>
+            <span style="margin-left:auto; display:inline-flex; align-items:center; gap:7px; font-size:12.5px; color:#3d6f7a; font-weight:500;"><span style="width:8px; height:8px; border-radius:50%; background:#3d6f7a; animation:pulse 1.8s ease-in-out infinite;"></span>Live</span>
+          </div>
+          <div class="serif" style="font-size:22px; font-weight:500; margin-bottom:8px;">Fintech payments app</div>
+          <p style="font-size:14.5px; color:#6a6459; line-height:1.5; margin:0 0 18px;">Idea to a regulated, live product with real users moving real money.</p>
+          <div class="serif" style="font-size:30px; font-weight:500;">0 &rarr; launch<span style="font-size:14px; font-weight:400; color:#8a8476; font-family:'Inter',sans-serif;"> in 14 weeks</span></div>
+        </div>
+      </div>
+
+      <!-- Logistics -->
+      <div style="border:1px solid #e6e0d4; border-radius:14px; overflow:hidden; background:#fbfaf7;">
+        <div class="ph" style="height:158px; border:none; border-bottom:1px solid #e6e0d4; border-color:#bcccce; background:repeating-linear-gradient(45deg,#eef3f3,#eef3f3 7px,#e4ecec 7px,#e4ecec 14px); color:#5f7a80;">legacy logistics platform</div>
+        <div style="padding:22px;">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
+            <span class="tag" style="border-color:#3d6f7a; color:#3d6f7a;">Managed</span>
+            <span style="margin-left:auto; display:inline-flex; align-items:center; gap:7px; font-size:12.5px; color:#3d6f7a; font-weight:500;"><span style="width:8px; height:8px; border-radius:50%; background:#3d6f7a;"></span>Managed by us</span>
+          </div>
+          <div class="serif" style="font-size:22px; font-weight:500; margin-bottom:8px;">Legacy logistics platform</div>
+          <p style="font-size:14.5px; color:#6a6459; line-height:1.5; margin:0 0 18px;">We took over a fragile, undocumented system and steadied the whole thing.</p>
+          <div class="serif" style="font-size:30px; font-weight:500;">&minus;63%<span style="font-size:14px; font-weight:400; color:#8a8476; font-family:'Inter',sans-serif;"> incident rate</span></div>
+        </div>
+      </div>
+
+      <!-- D2C -->
+      <div style="border:1px solid #e6e0d4; border-radius:14px; overflow:hidden; background:#fbfaf7;">
+        <div class="ph" style="height:158px; border:none; border-bottom:1px solid #e6e0d4;">D2C retail mobile app</div>
+        <div style="padding:22px;">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
+            <span class="tag" style="border-color:#c2703d; color:#c2703d;">Built</span>
+            <span class="tag" style="border-color:#3d6f7a; color:#3d6f7a;">Managed</span>
+            <span style="margin-left:auto; display:inline-flex; align-items:center; gap:7px; font-size:12.5px; color:#3d6f7a; font-weight:500;"><span style="width:8px; height:8px; border-radius:50%; background:#3d6f7a; animation:pulse 1.8s ease-in-out infinite;"></span>Live</span>
+          </div>
+          <div class="serif" style="font-size:22px; font-weight:500; margin-bottom:8px;">D2C retail mobile app</div>
+          <p style="font-size:14.5px; color:#6a6459; line-height:1.5; margin:0 0 18px;">Built it, shipped it, and still run it &mdash; the full build-then-manage arc.</p>
+          <div class="serif" style="font-size:30px; font-weight:500;">120k<span style="font-size:14px; font-weight:400; color:#8a8476; font-family:'Inter',sans-serif;"> monthly users</span></div>
+        </div>
+      </div>
+
+      <!-- Healthcare -->
+      <div style="border:1px solid #e6e0d4; border-radius:14px; overflow:hidden; background:#fbfaf7;">
+        <div class="ph" style="height:158px; border:none; border-bottom:1px solid #e6e0d4;">healthcare provider portal</div>
+        <div style="padding:22px;">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
+            <span class="tag" style="border-color:#c2703d; color:#c2703d;">Built</span>
+            <span style="margin-left:auto; display:inline-flex; align-items:center; gap:7px; font-size:12.5px; color:#a3653e; font-weight:500;"><span style="width:8px; height:8px; border-radius:50%; background:#c2703d;"></span>In build</span>
+          </div>
+          <div class="serif" style="font-size:22px; font-weight:500; margin-bottom:8px;">Healthcare provider portal</div>
+          <p style="font-size:14.5px; color:#6a6459; line-height:1.5; margin:0 0 18px;">Compliance-first from the first commit &mdash; built to pass audit on day one.</p>
+          <div class="serif" style="font-size:30px; font-weight:500;">HIPAA<span style="font-size:14px; font-weight:400; color:#8a8476; font-family:'Inter',sans-serif;"> from day one</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ 6 · MODELS ============ -->
+  <div style="padding:54px 56px 72px;">
+    <div style="margin-bottom:32px;">
+      <h2 class="serif" style="font-size:36px; font-weight:500; margin:0 0 6px;">Models we&rsquo;ve built.</h2>
+      <p class="hand" style="font-size:20px; color:#8a8476; margin:0;">ML &amp; deep-learning systems, trained and deployed</p>
+    </div>
+    <div class="modelGrid">
+
+      <div style="border:1px solid #ecd9cb; border-radius:14px; padding:24px; background:#fdf8f4;">
+        <div style="font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:#a3653e; margin-bottom:8px;">Model &middot; 01</div>
+        <div class="serif" style="font-size:21px; font-weight:500; margin-bottom:18px;">Fraud scorer</div>
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:18px;">
+          <div style="flex:1; text-align:center; font-size:12.5px; color:#6a6459; background:#fbfaf7; border:1px solid #ecd9cb; border-radius:8px; padding:11px 6px;">transactions</div>
+          <span style="color:#c2703d; font-size:18px;">&rarr;</span>
+          <div style="flex:1; text-align:center; font-size:12.5px; color:#a3653e; font-weight:500; background:#f7e7dc; border:1px solid #e3bfa0; border-radius:8px; padding:11px 6px;">risk 0&ndash;1</div>
+        </div>
+        <p style="font-size:14px; color:#6a6459; line-height:1.5; margin:0 0 16px;">Flags risky payments in real time, before they settle.</p>
+        <div style="font-size:13px; color:#a3653e; font-weight:500;">in use &rarr; fintech payments app</div>
+      </div>
+
+      <div style="border:1px solid #ecd9cb; border-radius:14px; padding:24px; background:#fdf8f4;">
+        <div style="font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:#a3653e; margin-bottom:8px;">Model &middot; 02</div>
+        <div class="serif" style="font-size:21px; font-weight:500; margin-bottom:18px;">Demand forecaster</div>
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:18px;">
+          <div style="flex:1; text-align:center; font-size:12.5px; color:#6a6459; background:#fbfaf7; border:1px solid #ecd9cb; border-radius:8px; padding:11px 6px;">sales history</div>
+          <span style="color:#c2703d; font-size:18px;">&rarr;</span>
+          <div style="flex:1; text-align:center; font-size:12.5px; color:#a3653e; font-weight:500; background:#f7e7dc; border:1px solid #e3bfa0; border-radius:8px; padding:11px 6px;">7-day demand</div>
+        </div>
+        <p style="font-size:14px; color:#6a6459; line-height:1.5; margin:0 0 16px;">Predicts next week&rsquo;s volume so stock and staffing line up.</p>
+        <div style="font-size:13px; color:#a3653e; font-weight:500;">in use &rarr; logistics platform</div>
+      </div>
+
+      <div style="border:1px solid #ecd9cb; border-radius:14px; padding:24px; background:#fdf8f4;">
+        <div style="font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:#a3653e; margin-bottom:8px;">Model &middot; 03 &middot; deep learning</div>
+        <div class="serif" style="font-size:21px; font-weight:500; margin-bottom:18px;">Doc classifier</div>
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:18px;">
+          <div style="flex:1; text-align:center; font-size:12.5px; color:#6a6459; background:#fbfaf7; border:1px solid #ecd9cb; border-radius:8px; padding:11px 6px;">scanned docs</div>
+          <span style="color:#c2703d; font-size:18px;">&rarr;</span>
+          <div style="flex:1; text-align:center; font-size:12.5px; color:#a3653e; font-weight:500; background:#f7e7dc; border:1px solid #e3bfa0; border-radius:8px; padding:11px 6px;">14 categories</div>
+        </div>
+        <p style="font-size:14px; color:#6a6459; line-height:1.5; margin:0 0 16px;">Sorts incoming paperwork automatically &mdash; no manual triage.</p>
+        <div style="font-size:13px; color:#a3653e; font-weight:500;">in use &rarr; healthcare portal</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ 7 · TESTIMONIAL ============ -->
+  <div style="padding:72px 56px; background:#f5f2ea; border-top:1px solid #eceadf; border-bottom:1px solid #eceadf;">
+    <div style="max-width:780px; margin:0 auto; text-align:center;">
+      <div class="serif" style="font-size:34px; line-height:1.3; font-weight:500; letter-spacing:-.01em;">&ldquo;They built our product, then stayed on to run it. Two vendors&rsquo; worth of work, one team that owns the outcome.&rdquo;</div>
+      <div style="display:flex; align-items:center; justify-content:center; gap:14px; margin-top:30px;">
+        <div style="width:48px; height:48px; border-radius:50%; background:#e0dacd; border:1px solid #d3cdc0;"></div>
+        <div style="text-align:left;">
+          <div class="ln" style="width:120px; height:9px; margin-bottom:8px;"></div>
+          <div style="font-size:13.5px; color:#7c766a;">COO &middot; fintech we built &amp; manage</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 8 · CTA BAND ============ -->
+  <div style="padding:64px 56px; background:#211f1b; color:#fbfaf7; text-align:center;">
+    <h2 class="serif" style="font-size:40px; line-height:1.1; font-weight:500; margin:0 0 12px;">Want work like this?</h2>
+    <p style="font-size:18px; color:#b6b0a4; margin:0 0 30px;">Tell us where you are &mdash; we&rsquo;ll tell you what we&rsquo;d do.</p>
+    <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+      <a class="btn" style="background:#c2703d; color:#fff;">Start a build</a>
+      <a class="btn" style="background:#3d6f7a; color:#fff;">Hand it over</a>
+    </div>
+  </div>
+
+  <!-- ============ 9 · FOOTER ============ -->
+  <div style="padding:54px 56px 30px;">
+    <div class="footCols">
+      <div>
+        <div style="display:flex; align-items:center; gap:11px; margin-bottom:14px;">
+          <div class="serif" style="width:30px; height:30px; border-radius:8px; background:#211f1b; color:#fbfaf7; display:flex; align-items:center; justify-content:center; font-size:18px;">N</div>
+          <div class="serif" style="font-size:20px; font-weight:500;">Northbeam</div>
+        </div>
+        <div class="hand" style="font-size:21px; color:#8a8476;">Build it, or run it.</div>
+      </div>
+      <div>
+        <div style="font-size:13px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:#c2703d; margin-bottom:14px;">Build</div>
+        <div style="display:flex; flex-direction:column; gap:10px; font-size:14.5px; color:#5a554c;">
+          <span>Web apps</span><span>Mobile apps</span><span>ML models</span><span>AI / deep learning</span>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:13px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:#3d6f7a; margin-bottom:14px;">Manage</div>
+        <div style="display:flex; flex-direction:column; gap:10px; font-size:14.5px; color:#5a554c;">
+          <span>Security</span><span>Databases</span><span>System design</span><span>UI / UX</span>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:13px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:#8a8476; margin-bottom:14px;">Company</div>
+        <div style="display:flex; flex-direction:column; gap:10px; font-size:14.5px; color:#5a554c;">
+          <span>Work</span><span>Contact</span>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid #eceadf; margin-top:40px; padding-top:20px; display:flex; justify-content:space-between; align-items:center; font-size:13px; color:#9a9486;">
+      <span>&copy; 2026 Northbeam</span>
+      <span>Build &middot; Manage &middot; Work &middot; Contact</span>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>
