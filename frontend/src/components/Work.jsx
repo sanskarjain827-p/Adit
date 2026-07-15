@@ -1,19 +1,10 @@
-import { useMemo, useState, useEffect, useRef } from 'react'
+import { useMemo, useState } from 'react'
 import { projects, extraWork, filterOptions } from '../data/projects.js'
 import PreviewCard from './PreviewCard.jsx'
+import { useReveal } from '../hooks/useReveal.js'
 
 function Row({ item, visibleThumb }) {
-  const ref = useRef(null)
-  const [shown, setShown] = useState(false)
-
-  useEffect(() => {
-    const io = new IntersectionObserver(
-      ([e]) => e.isIntersecting && setShown(true),
-      { threshold: 0.15 },
-    )
-    io.observe(ref.current)
-    return () => io.disconnect()
-  }, [])
+  const [ref, shown] = useReveal(0.15)
 
   return (
     <article ref={ref} className={`work-row ${shown ? 'row-in' : ''}`}>
@@ -73,13 +64,6 @@ export default function Work() {
           <Row key={item.name} item={item} visibleThumb={i % 3 === 0} />
         ))}
       </section>
-
-      <footer className="work-foot">
-        <p>
-          Have a product in mind?{' '}
-          <a href="mailto:hello@insyd.studio">hello@insyd.studio</a>
-        </p>
-      </footer>
     </main>
   )
 }

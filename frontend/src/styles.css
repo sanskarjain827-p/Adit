@@ -913,6 +913,63 @@ a {
   transition: opacity 0.6s ease, translate 0.6s ease;
 }
 
+/* ---------- stats ---------- */
+.hp-stats {
+  margin: clamp(120px, 18vh, 220px) 0 clamp(80px, 10vh, 140px);
+  opacity: 0;
+  translate: 0 16px;
+  transition: opacity 0.6s ease, translate 0.6s ease;
+}
+
+.hp-stats-title {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(30px, 4.6vw, 56px);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  max-width: 14ch;
+  margin-bottom: clamp(60px, 12vh, 160px);
+}
+
+.hp-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.stat-cell {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: clamp(280px, 40vh, 460px);
+  padding-left: clamp(20px, 3vw, 40px);
+  border-left: 1px solid var(--blue);
+}
+
+.stat-cell:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.stat-label {
+  white-space: pre-line;
+  color: var(--ink-dim);
+  font-size: clamp(14px, 1.4vw, 20px);
+  line-height: 1.25;
+}
+
+.stat-value {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(44px, 6.5vw, 92px);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 720px) {
+  .stat-value { font-size: clamp(44px, 14vw, 80px); }
+  .stat-cell { min-height: clamp(200px, 30vh, 300px); }
+}
+
 .hp-what h2 {
   font-family: var(--serif-display);
   font-weight: 400;
@@ -1199,7 +1256,7 @@ a {
   font-size: clamp(23px, 3.1vw, 40px);
   line-height: 1.28;
   letter-spacing: -0.01em;
-  max-width: 780px;
+  max-width: 46ch; /* wraps the intro to 3 lines */
   overflow: hidden;
 }
 
@@ -1599,18 +1656,6 @@ a {
   color: var(--blue-hover);
 }
 
-.work-foot {
-  padding: 90px 12px 110px;
-  font-family: var(--serif);
-  font-size: clamp(22px, 3vw, 34px);
-  font-weight: 300;
-}
-
-.work-foot a {
-  color: var(--blue);
-  text-decoration: underline;
-  text-underline-offset: 6px;
-}
 
 /* ---------- contact form ---------- */
 .contact-form {
@@ -1833,16 +1878,14 @@ a {
 .principles-link,
 .hp-what h2,
 .service-name,
-.principle-n,
-.work-foot {
+.principle-n {
   font-weight: 500;
   letter-spacing: -0.015em;
 }
 
 /* ---------- custom cursor (MetaLab-style) ---------- */
-/* native cursor hidden on pointer-fine devices; a white dot + outline
-   ring follow the pointer with a smooth lag, the ring swelling over
-   interactive elements. Blend keeps it visible over light imagery. */
+/* native cursor hidden on pointer-fine devices; a white dot springs
+   toward the pointer (Cursor.jsx). */
 @media (hover: hover) and (pointer: fine) {
   body,
   body * {
@@ -1856,57 +1899,10 @@ a {
   left: 0;
   z-index: 9999;
   pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-
-.cursor.cursor-visible {
-  opacity: 1;
-}
-
-.cursor-dot,
-.cursor-ring {
-  position: absolute;
-  top: 0;
-  left: 0;
   border-radius: 50%;
-  translate: -50% -50%;
-}
-
-.cursor-dot {
-  width: 10px;
-  height: 10px;
   background: #fff;
-  /* dark halo keeps it visible on white/mid-gray imagery (replaces the
-     mix-blend-mode: difference that vanished over ~50% gray) */
+  /* dark halo keeps it visible on white/mid-gray imagery */
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.45);
-  transition: scale 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.cursor-ring {
-  width: 36px;
-  height: 36px;
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), 0 0 3px rgba(0, 0, 0, 0.4);
-  transition: scale 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
-    opacity 0.3s ease;
-}
-
-.cursor-hot .cursor-ring {
-  scale: 1.9;
-  opacity: 0.9;
-}
-
-.cursor-hot .cursor-dot {
-  scale: 0.55;
-}
-
-.cursor-down .cursor-ring {
-  scale: 0.85;
-}
-
-.cursor-down .cursor-dot {
-  scale: 0.8;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1919,5 +1915,113 @@ a {
   body,
   body * {
     cursor: auto !important;
+  }
+}
+
+/* ---------- footer (global) ---------- */
+.site-footer {
+  border-top: 1px solid var(--hairline);
+  padding: clamp(64px, 12vw, 150px) clamp(20px, 5vw, 64px) 40px;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(56px, 10vw, 120px);
+  opacity: 0;
+  translate: 0 26px;
+  filter: blur(6px);
+  transition: opacity 0.8s ease, translate 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+    filter 0.8s ease;
+}
+
+.footer-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.footer-headline {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(2.6rem, 8vw, 6rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.footer-pill.footer-pill {
+  background: var(--blue);
+  color: var(--on-blue);
+  border-color: var(--blue);
+  padding: 12px 22px;
+  font-size: 14.5px;
+}
+
+.footer-pill.footer-pill:hover {
+  background: var(--blue-hover);
+  border-color: var(--blue-hover);
+}
+
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px 32px;
+}
+
+.footer-copy {
+  color: var(--ink-dim);
+  font-size: 14px;
+}
+
+/* animated link — ported from Skiper40 Link001 (underline wipe right→left + arrow) */
+.footer-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: clamp(1.5rem, 4vw, 2.6rem);
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.footer-link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -0.05em;
+  width: 100%;
+  height: 0.05em;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.footer-link:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.footer-arrow {
+  width: 0.55em;
+  height: 0.55em;
+  margin-left: 0.3em;
+  opacity: 0;
+  transform: translateY(0.25em);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.footer-link:hover .footer-arrow {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-link::before,
+  .footer-arrow {
+    transition: none;
   }
 }

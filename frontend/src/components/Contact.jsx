@@ -50,12 +50,6 @@ export default function Contact() {
         </button>
       </form>
 
-      <footer className="work-foot">
-        <p>
-          Prefer email? Write to us at{' '}
-          <a href="mailto:hello@insyd.studio">hello@insyd.studio</a>
-        </p>
-      </footer>
     </main>
   )
 }

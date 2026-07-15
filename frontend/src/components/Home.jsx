@@ -32,6 +32,12 @@ const focusAreas = [
   },
 ]
 
+const stats = [
+  { label: 'Views\ngenerated', value: '500M+' },
+  { label: 'Followers\ngained', value: '1M+' },
+  { label: 'Brands\nscaled', value: '10+' },
+]
+
 const serviceGroups = [
   {
     name: 'Design & UX',
@@ -66,10 +72,10 @@ function ServiceGroup({ group, i }) {
 }
 
 export default function Home({ onTalk, onWork }) {
-  const [introRef, introShown] = useReveal()
   const [whatRef, whatShown] = useReveal()
   const [servicesRef, servicesShown] = useReveal(0.1)
   const [closeRef, closeShown] = useReveal()
+  const [statsRef, statsShown] = useReveal(0.1)
 
   return (
     <main className="homepage">
@@ -77,29 +83,6 @@ export default function Home({ onTalk, onWork }) {
         <p className="hp-hero-text">
           We build your product, design it, train the models behind it, and
           run the social presence that grows it, one team from start to finish.
-        </p>
-      </section>
-
-      <section ref={introRef} className={`hp-intro ${introShown ? 'hp-in' : ''}`}>
-        <div className="hp-intro-art">
-          <img
-            className="frame-img"
-            src="/images/intro.jpg"
-            alt="Our team collaborating on a product build"
-            loading="lazy"
-          />
-        </div>
-        <p className="hp-intro-text">
-          We've helped shape the technology landscape by partnering with
-          diverse businesses to bring innovative ideas to life. Our expertise
-          spans across product development, design, and AI model training,
-          ensuring every aspect of your project is handled with precision and
-          creativity. We don't just stop at building, we also manage the
-          social presence that elevates your brand, creating a cohesive
-          strategy that drives growth. Whether you're a startup or an
-          established company, our team is dedicated to delivering
-          end-to-end solutions that meet your unique needs. Connect with us
-          to transform your vision into reality.
         </p>
       </section>
 
@@ -131,6 +114,18 @@ export default function Home({ onTalk, onWork }) {
       </section>
 
       <Principles onWork={onWork} />
+
+      <section ref={statsRef} className={`hp-stats ${statsShown ? 'hp-in' : ''}`}>
+        <h2 className="hp-stats-title">Numbers that speak louder than pitches</h2>
+        <div className="hp-stats-grid">
+          {stats.map((s) => (
+            <div key={s.value} className="stat-cell">
+              <span className="stat-label">{s.label}</span>
+              <span className="stat-value">{s.value}</span>
+            </div>
+          ))}
+        </div>
+      </section>
     </main>
   )
 }

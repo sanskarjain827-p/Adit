@@ -1,75 +1,43 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { motion, useMotionValue, useSpring } from 'framer-motion'
 
-/* MetaLab-style custom cursor: native cursor hidden, a small white dot
-   plus an outline ring follow the pointer with a smooth lag; the ring
-   swells over interactive elements. Pointer-fine devices only. */
+const SPRING = { mass: 0.1, damping: 10, stiffness: 131 }
+const SIZE = 20
+
+/* Global mouse-follow cursor: native cursor hidden (styles.css), a small
+   dot springs toward the pointer. Pointer-fine devices only. */
 export default function Cursor() {
-  const wrapRef = useRef(null)
   const [enabled] = useState(
     () =>
       typeof window !== 'undefined' &&
       window.matchMedia('(hover: hover) and (pointer: fine)').matches,
   )
+  const x = useSpring(-100, SPRING)
+  const y = useSpring(-100, SPRING)
+  const opacity = useSpring(0, SPRING)
 
   useEffect(() => {
     if (!enabled) return
-    const wrap = wrapRef.current
-    let raf
-    let mx = -100
-    let my = -100
-    let x = -100
-    let y = -100
-    let visible = false
-
-    const loop = () => {
-      // lerp toward the pointer for the trailing feel
-      x += (mx - x) * 0.22
-      y += (my - y) * 0.22
-      wrap.style.transform = `translate3d(${x}px, ${y}px, 0)`
-      raf = requestAnimationFrame(loop)
-    }
-
     const onMove = (e) => {
-      mx = e.clientX
-      my = e.clientY
-      if (!visible) {
-        visible = true
-        // first appearance: snap to the pointer, don't glide from a corner
-        x = mx
-        y = my
-        wrap.classList.add('cursor-visible')
-      }
-      const interactive = e.target.closest(
-        'a, button, [role="button"], input, textarea, select, label, .focus-row, .hpx-card',
-      )
-      wrap.classList.toggle('cursor-hot', !!interactive)
+      x.set(e.clientX - SIZE / 2)
+      y.set(e.clientY - SIZE / 2)
+      opacity.set(1)
     }
-    const onLeave = () => {
-      visible = false
-      wrap.classList.remove('cursor-visible')
-    }
-    const onDown = () => wrap.classList.add('cursor-down')
-    const onUp = () => wrap.classList.remove('cursor-down')
-
+    const onLeave = () => opacity.set(0)
     window.addEventListener('mousemove', onMove, { passive: true })
     document.documentElement.addEventListener('mouseleave', onLeave)
-    window.addEventListener('mousedown', onDown)
-    window.addEventListener('mouseup', onUp)
-    raf = requestAnimationFrame(loop)
     return () => {
-      cancelAnimationFrame(raf)
       window.removeEventListener('mousemove', onMove)
       document.documentElement.removeEventListener('mouseleave', onLeave)
-      window.removeEventListener('mousedown', onDown)
-      window.removeEventListener('mouseup', onUp)
     }
-  }, [enabled])
+  }, [enabled, x, y, opacity])
 
   if (!enabled) return null
   return (
-    <div ref={wrapRef} className="cursor" aria-hidden>
-      <span className="cursor-ring" />
-      <span className="cursor-dot" />
-    </div>
+    <motion.div
+      className="cursor"
+      aria-hidden
+      style={{ x, y, opacity, width: SIZE, height: SIZE }}
+    />
   )
 }

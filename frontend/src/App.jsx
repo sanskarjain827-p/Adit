@@ -6,6 +6,7 @@ import Work from './components/Work.jsx'
 import Contact from './components/Contact.jsx'
 import MenuOverlay from './components/MenuOverlay.jsx'
 import Preloader from './components/Preloader.jsx'
+import Footer from './components/Footer.jsx'
 import Cursor from './components/Cursor.jsx'
 
 const PRELOAD_KEY = 'insyd-preloaded'
@@ -61,6 +62,7 @@ export default function App() {
         {view === 'work' && <Work />}
         {view === 'contact' && <Contact />}
       </div>
+      {view === 'home' && <Footer onContact={() => navigate('contact')} />}
       <MenuOverlay
         open={menuOpen}
         onClose={() => setMenuOpen(false)}
