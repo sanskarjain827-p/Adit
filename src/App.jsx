@@ -172,7 +172,7 @@ function Preloader({ onComplete }) {
     // If progress is 100, trigger completion
     if (progress >= 100) {
       const timer = setTimeout(() => {
-        onComplete();
+        onComplete(false);
       }, 400);
       return () => clearTimeout(timer);
     }
@@ -200,7 +200,7 @@ function Preloader({ onComplete }) {
   };
 
   const handleSkip = () => {
-    setProgress(100);
+    onComplete(true);
   };
 
   return (
@@ -222,7 +222,6 @@ function Preloader({ onComplete }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span className="preloader-tagline">JAIPUR, RAJASTHAN</span>
           <h2 className="preloader-title">maggieaurcode</h2>
         </motion.div>
 
@@ -235,7 +234,7 @@ function Preloader({ onComplete }) {
           <video
             ref={videoRef}
             className="preloader-video"
-            src="/preloader.mp4"
+            src="/intro2.mp4"
             muted
             autoPlay
             playsInline
@@ -251,7 +250,7 @@ function Preloader({ onComplete }) {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
         >
           <div className="preloader-progress-info">
-            <span>STUDIO INTRO</span>
+            <span>CRAFTING DIGITAL SPACES</span>
             <span className="preloader-percentage">{progress}%</span>
           </div>
           <div className="preloader-progress-bar">
@@ -276,8 +275,274 @@ function Preloader({ onComplete }) {
   );
 }
 
+const heroContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.3
+    }
+  }
+};
+
+const heroItemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 70,
+      damping: 18
+    }
+  }
+};
+
+function AntigravityCanvas() {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let animationFrameId;
+    let width = (canvas.width = canvas.offsetWidth);
+    let height = (canvas.height = canvas.offsetHeight);
+
+    const particles = [];
+    const spacing = 45;
+    const ringCount = Math.min(25, Math.ceil(Math.max(width, height) / spacing));
+    const mouse = { x: null, y: null, active: false };
+
+    // Initialize particles in concentric rings
+    for (let r = 0; r < ringCount; r++) {
+      const radius = 60 + r * spacing;
+      const circumference = 2 * Math.PI * radius;
+      const dashCount = Math.floor(circumference / 50);
+      const angleStep = (2 * Math.PI) / Math.max(1, dashCount);
+
+      for (let i = 0; i < dashCount; i++) {
+        const baseAngle = i * angleStep;
+        const dir = r % 2 === 0 ? 1 : -1;
+        const speed = dir * (0.0002 + 0.0001 * (1.5 - radius / 1000));
+
+        particles.push({
+          radius,
+          angle: baseAngle,
+          speed,
+          x: 0,
+          y: 0,
+          prevX: 0,
+          prevY: 0,
+          length: 6 + Math.random() * 8,
+          width: 1.2 + Math.random() * 1.5,
+          alpha: 0.04 + Math.random() * 0.12,
+        });
+      }
+    }
+
+    const handleMouseMove = (e) => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+      mouse.active = true;
+    };
+
+    const handleMouseLeave = () => {
+      mouse.x = null;
+      mouse.y = null;
+      mouse.active = false;
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseleave", handleMouseLeave);
+
+    const handleResize = () => {
+      if (!canvas) return;
+      width = canvas.width = canvas.offsetWidth;
+      height = canvas.height = canvas.offsetHeight;
+    };
+    window.addEventListener("resize", handleResize);
+
+    const render = () => {
+      const isDark = document.documentElement.classList.contains("dark");
+      ctx.clearRect(0, 0, width, height);
+
+      const centerX = width / 2;
+      const centerY = height / 2;
+      const r = isDark ? 255 : 120;
+      const g = isDark ? 255 : 125;
+      const b = isDark ? 255 : 135;
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+
+        p.angle += p.speed;
+
+        const origX = centerX + p.radius * Math.cos(p.angle);
+        const origY = centerY + p.radius * Math.sin(p.angle);
+
+        let targetX = origX;
+        let targetY = origY;
+
+        if (mouse.active && mouse.x !== null && mouse.y !== null) {
+          const dx = origX - mouse.x;
+          const dy = origY - mouse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          
+          const interactRadius = 180;
+          if (dist < interactRadius) {
+            const force = (interactRadius - dist) / interactRadius;
+            
+            const rx = dx / dist;
+            const ry = dy / dist;
+
+            const sx = -ry;
+            const sy = rx;
+
+            targetX += rx * force * 55;
+            targetY += ry * force * 55;
+            targetX += sx * force * 30;
+            targetY += sy * force * 30;
+          }
+        }
+
+        p.prevX = p.x;
+        p.prevY = p.y;
+
+        if (p.x === 0 && p.y === 0) {
+          p.x = targetX;
+          p.y = targetY;
+          p.prevX = targetX;
+          p.prevY = targetY;
+        }
+
+        p.x += (targetX - p.x) * 0.08;
+        p.y += (targetY - p.y) * 0.08;
+
+        let angle = p.angle;
+        if (p.x - p.prevX !== 0 || p.y - p.prevY !== 0) {
+          angle = Math.atan2(p.y - p.prevY, p.x - p.prevX);
+        } else {
+          angle = p.angle + Math.PI / 2;
+        }
+
+        ctx.beginPath();
+        const halfLen = p.length / 2;
+        const cos = Math.cos(angle);
+        const sin = Math.sin(angle);
+        
+        ctx.moveTo(p.x - cos * halfLen, p.y - sin * halfLen);
+        ctx.lineTo(p.x + cos * halfLen, p.y + sin * halfLen);
+
+        ctx.lineWidth = p.width;
+        ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${p.alpha})`;
+        ctx.lineCap = "round";
+        ctx.stroke();
+      }
+
+      animationFrameId = requestAnimationFrame(render);
+    };
+
+    render();
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseleave", handleMouseLeave);
+      window.removeEventListener("resize", handleResize);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return (
+    <div className="hero-canvas-container">
+      <canvas ref={canvasRef} className="hero-canvas" />
+    </div>
+  );
+}
+
+function CustomCursor() {
+  const dotRef = useRef(null);
+  const ringRef = useRef(null);
+
+  useEffect(() => {
+    const isDesktop = window.matchMedia("(min-width: 769px) and (pointer: fine)").matches;
+    if (!isDesktop) return;
+
+    const dot = dotRef.current;
+    const ring = ringRef.current;
+    if (!dot || !ring) return;
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let ringX = 0;
+    let ringY = 0;
+    let isHovered = false;
+
+    const onMouseMove = (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+    };
+
+    const updateRing = () => {
+      ringX += (mouseX - ringX) * 0.15;
+      ringY += (mouseY - ringY) * 0.15;
+      ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) scale(${isHovered ? 1.8 : 1})`;
+      requestAnimationFrame(updateRing);
+    };
+
+    window.addEventListener("mousemove", onMouseMove);
+    const animId = requestAnimationFrame(updateRing);
+
+    const addHoverClass = () => {
+      isHovered = true;
+      ring.classList.add("cursor-hover");
+      dot.classList.add("cursor-hover");
+    };
+
+    const removeHoverClass = () => {
+      isHovered = false;
+      ring.classList.remove("cursor-hover");
+      dot.classList.remove("cursor-hover");
+    };
+
+    const attachListeners = () => {
+      const interactives = document.querySelectorAll("a, button, [role='button'], .services-item, .stat-card, .theme-toggle");
+      interactives.forEach((el) => {
+        el.removeEventListener("mouseenter", addHoverClass);
+        el.removeEventListener("mouseleave", removeHoverClass);
+        el.addEventListener("mouseenter", addHoverClass);
+        el.addEventListener("mouseleave", removeHoverClass);
+      });
+    };
+
+    attachListeners();
+
+    const observer = new MutationObserver(attachListeners);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+      cancelAnimationFrame(animId);
+      observer.disconnect();
+    };
+  }, []);
+
+  return (
+    <>
+      <div ref={dotRef} className="custom-cursor-dot" />
+      <div ref={ringRef} className="custom-cursor-ring" />
+    </>
+  );
+}
+
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [isSkipped, setIsSkipped] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [navbarVisible, setNavbarVisible] = useState(true);
   const lastScrollY = useRef(0);
@@ -359,9 +624,20 @@ export default function App() {
 
   return (
     <>
-      <AnimatePresence>
-        {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
-      </AnimatePresence>
+      {isLoading && (
+        isSkipped ? null : (
+          <AnimatePresence>
+            <Preloader 
+              onComplete={(skipped) => {
+                if (skipped) {
+                  setIsSkipped(true);
+                }
+                setIsLoading(false);
+              }} 
+            />
+          </AnimatePresence>
+        )
+      )}
 
       <motion.div
         className="page page-wrapper"
@@ -369,6 +645,7 @@ export default function App() {
         animate={{ opacity: isLoading ? 0 : 1, scale: isLoading ? 0.97 : 1 }}
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
       >
+        <CustomCursor />
       <header className={`logo ${navbarVisible ? "" : "logo--hidden"}`}>
         <div className="logo-container">
           <img src="/logo.jpeg" className="logo-img" alt="logo" />
@@ -387,6 +664,8 @@ export default function App() {
 
       {/* PHASE 1: THE HERO SECTION */}
       <section className="hero-section">
+        <AntigravityCanvas />
+
         <div className="hero-grid">
           <h1 className="hero-text left">
             No handoffs, no templates.<br />Just one team obsessed with the details.
@@ -398,9 +677,9 @@ export default function App() {
         
         {/* Sticky-style Stats Banner */}
         <div className="stats-banner">
-          <div className="stat-item"><strong>357%</strong> average client value growth</div>
-          <div className="stat-item"><strong>7</strong> unicorns and counting</div>
-          <div className="stat-item"><strong>$10B+</strong> raised by TinyWins portfolio companies</div>
+          <div className="stat-item"><strong>100%</strong> obsessed with product details</div>
+          <div className="stat-item"><strong>0</strong> handoff delay from design to code</div>
+          <div className="stat-item"><strong>10x</strong> your project's launch speed</div>
         </div>
       </section>
 
@@ -626,7 +905,7 @@ export default function App() {
         <div className="contact-container">
           <div className="contact-hero">
             <h2 className="contact-title">LET&rsquo;S STAY IN TOUCH</h2>
-            <AnimLink className="send-note-btn" href="mailto:hello@reallygreatsite.com">
+            <AnimLink className="send-note-btn" href="mailto:connect.aditjain@gmail.com">
               SEND A NOTE
             </AnimLink>
           </div>
@@ -675,11 +954,11 @@ export default function App() {
               <ul className="footer-links">
                 <li>
                   <span className="info-label">PHONE</span>
-                  <AnimLink href="tel:+11234567890">(123) 456 7890</AnimLink>
+                  <AnimLink href="tel:+919571042644">+91 95710 42644</AnimLink>
                 </li>
                 <li>
                   <span className="info-label">EMAIL</span>
-                  <AnimLink href="mailto:hello@reallygreatsite.com">hello@reallygreatsite.com</AnimLink>
+                  <AnimLink href="mailto:connect.aditjain@gmail.com">connect.aditjain@gmail.com</AnimLink>
                 </li>
               </ul>
             </div>
