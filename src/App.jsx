@@ -17,9 +17,9 @@ import mvpsImg from "./assets/services/mvps.jpg";
 import maintenanceImg from "./assets/services/maintenance.jpg";
 
 const shots = [
-  [kvstone, "K.V Stone"],
-  [kotaHero, "Kota Furniture Hub"],
-  [kotaSpaces, "Kota Furniture Hub — curated spaces"],
+  { src: kvstone, alt: "K.V Stone", width: 1200, height: 750 },
+  { src: kotaHero, alt: "Kota Furniture Hub", width: 1200, height: 750 },
+  { src: kotaSpaces, alt: "Kota Furniture Hub - curated spaces", width: 1200, height: 750 },
 ];
 
 // CSS can't stop an autoplaying loop; the rest of the page handles this in @media
@@ -31,6 +31,8 @@ const services = [
     title: "GIFTING & OCCASION",
     desc: "Digital gifts that outlive the occasion. Timelines, secret letters, memory maps.",
     image: giftingImg,
+    imageWidth: 1264,
+    imageHeight: 848,
     tags: ["Digital Gifts", "Timelines", "Secret Letters", "Memory Maps"]
   },
   {
@@ -38,6 +40,8 @@ const services = [
     title: "BUSINESS SHOWCASE",
     desc: "Blazing-fast sites for shops and businesses. No CMS bloat, no template smell.",
     image: businessImg,
+    imageWidth: 1264,
+    imageHeight: 848,
     tags: ["Blazing-fast Sites", "Shops & Businesses", "No CMS Bloat", "No Template Smell"]
   },
   {
@@ -45,6 +49,8 @@ const services = [
     title: "PERSONAL & PORTFOLIO",
     desc: "Premium personal brands for people whose work deserves better than a grid.",
     image: personalImg,
+    imageWidth: 1264,
+    imageHeight: 848,
     tags: ["Personal Branding", "Elite Portfolios", "Interactive Visuals", "Design Systems"]
   },
   {
@@ -52,6 +58,8 @@ const services = [
     title: "STUDIO PARTNERSHIPS",
     desc: "Your fractional engineering team. Multi-phase builds, ongoing.",
     image: studioImg,
+    imageWidth: 1264,
+    imageHeight: 848,
     tags: ["Fractional Engineering", "Multi-phase Builds", "Dedicated Development", "Ongoing Rescues"]
   },
   {
@@ -59,6 +67,8 @@ const services = [
     title: "APPS & MVPS",
     desc: "Dashboards, AI interfaces, prototypes. Built fast enough to validate the idea.",
     image: mvpsImg,
+    imageWidth: 1264,
+    imageHeight: 848,
     tags: ["Dashboards", "AI Integrations", "Functional Prototypes", "Idea Validation"]
   },
   {
@@ -66,6 +76,8 @@ const services = [
     title: "MAINTENANCE",
     desc: "Audits, redesigns, rescues. We make old sites fast again.",
     image: maintenanceImg,
+    imageWidth: 1200,
+    imageHeight: 750,
     tags: ["Performance Audits", "Layout Redesigns", "Rescue Projects", "Speed Optimization"]
   }
 ];
@@ -146,16 +158,6 @@ function Scatter({ text }) {
   ));
 }
 
-// one span per word; --w drives the stagger via animation-range
-function Words({ text }) {
-  return text.split(" ").flatMap((w, i) => [
-    i ? " " : null,
-    <span key={i} style={{ "--w": i }}>
-      {w}
-    </span>,
-  ]);
-}
-
 function Preloader({ onComplete }) {
   const [progress, setProgress] = useState(0);
   const videoRef = useRef(null);
@@ -222,7 +224,7 @@ function Preloader({ onComplete }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <h2 className="preloader-title">maggieaurcode</h2>
+          <div className="preloader-title">maggieaurcode</div>
         </motion.div>
 
         <motion.div 
@@ -240,7 +242,9 @@ function Preloader({ onComplete }) {
             playsInline
             onTimeUpdate={handleTimeUpdate}
             onEnded={handleVideoEnded}
-          />
+          >
+            <track kind="captions" src="/captions.vtt" srcLang="en" label="English" default />
+          </video>
         </motion.div>
 
         <motion.div 
@@ -274,30 +278,6 @@ function Preloader({ onComplete }) {
     </motion.div>
   );
 }
-
-const heroContainerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.3
-    }
-  }
-};
-
-const heroItemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: "spring",
-      stiffness: 70,
-      damping: 18
-    }
-  }
-};
 
 function AntigravityCanvas() {
   const canvasRef = useRef(null);
@@ -546,7 +526,6 @@ export default function App() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [navbarVisible, setNavbarVisible] = useState(true);
   const lastScrollY = useRef(0);
-  const triggerRefs = useRef([]);
   const scrollTrackRef = useRef(null);
   const videoFrameRef = useRef(null);
 
@@ -582,9 +561,9 @@ export default function App() {
     });
 
     tl.to(videoFrameRef.current, {
-      width: "85vw",            // Shrink from left & right sides
-      height: "75vh",           // Shrink from top & bottom sides
-      borderRadius: "24px",     // Smoothly round the corners into a card shape
+      scaleX: 0.85,             // Composited shrink from left and right sides
+      scaleY: 0.75,             // Composited shrink from top and bottom sides
+      borderRadius: "24px",
       ease: "power1.inOut"
     });
   }, { scope: scrollTrackRef });
@@ -648,7 +627,7 @@ export default function App() {
         <CustomCursor />
       <header className={`logo ${navbarVisible ? "" : "logo--hidden"}`}>
         <div className="logo-container">
-          <img src="/logo.jpeg" className="logo-img" alt="logo" />
+          <img src="/logo.jpeg" className="logo-img" alt="maggieaurcode logo" width="160" height="156" />
           <div className="logo-text">
             <span className="logo-main">maggieaurcode</span>
           </div>
@@ -670,9 +649,9 @@ export default function App() {
           <h1 className="hero-text left">
             No handoffs, no templates.<br />Just one team obsessed with the details.
           </h1>
-          <h1 className="hero-text right">
+          <p className="hero-text right">
             We design it, build it, and make it move. One team taking your website from idea to launch.
-          </h1>
+          </p>
         </div>
         
         {/* Sticky-style Stats Banner */}
@@ -693,7 +672,9 @@ export default function App() {
             loop 
             muted 
             playsInline 
-          />
+          >
+            <track kind="captions" src="/captions.vtt" srcLang="en" label="English" default />
+          </video>
           <button className="play-reel-btn">▶ Play Reel</button>
         </div>
       </section>
@@ -715,24 +696,24 @@ export default function App() {
           <div className="about-founders">
             <div className="founder-card">
               <div className="founder-img-wrapper">
-                <img src="/sanyam.jpeg" alt="Sanyam Bansal" className="founder-img" />
+                <img src="/sanyam.jpeg" alt="Sanyam Bansal" className="founder-img" width="819" height="1000" loading="lazy" decoding="async" />
                 <div className="corner-accent top-right"></div>
                 <div className="corner-accent bottom-left"></div>
               </div>
               <div className="founder-info">
-                <h4 className="founder-name">Sanyam Bansal</h4>
+                <h3 className="founder-name">Sanyam Bansal</h3>
                 <p className="founder-role">Founder & Director</p>
               </div>
             </div>
 
             <div className="founder-card">
               <div className="founder-img-wrapper">
-                <img src="/adit.jpeg" alt="Adit Jain" className="founder-img" />
+                <img src="/adit.jpeg" alt="Adit Jain" className="founder-img" width="812" height="1000" loading="lazy" decoding="async" />
                 <div className="corner-accent top-right"></div>
                 <div className="corner-accent bottom-left"></div>
               </div>
               <div className="founder-info">
-                <h4 className="founder-name">Adit Jain</h4>
+                <h3 className="founder-name">Adit Jain</h3>
                 <p className="founder-role">Studio Manager</p>
               </div>
             </div>
@@ -765,8 +746,17 @@ export default function App() {
           </h2>
 
           <div className="shots-frame">
-            {shots.map(([src, alt], i) => (
-              <img key={src} src={src} alt={alt} style={{ "--i": i }} />
+            {shots.map((shot, i) => (
+              <img
+                key={shot.src}
+                src={shot.src}
+                alt={shot.alt}
+                width={shot.width}
+                height={shot.height}
+                loading="lazy"
+                decoding="async"
+                style={{ "--i": i }}
+              />
             ))}
           </div>
 
@@ -831,6 +821,10 @@ export default function App() {
                     key={activeIndex}
                     src={services[activeIndex].image}
                     alt={services[activeIndex].title}
+                    width={services[activeIndex].imageWidth}
+                    height={services[activeIndex].imageHeight}
+                    loading="lazy"
+                    decoding="async"
                     initial={{ opacity: 0, y: 15, scale: 0.96 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -15, scale: 0.96 }}
@@ -885,14 +879,22 @@ export default function App() {
 
           {/* Mobile-Only Layout: Simple vertical flow */}
           <div className="showcase-content-mobile mobile-only">
-            {services.map((service, i) => (
+            {services.map((service) => (
               <div key={service.title} className="mobile-showcase-item">
                 <div className="mobile-showcase-header">
                   <span className="mobile-showcase-num">{service.id}</span>
                   <h3 className="mobile-showcase-title">{service.title}</h3>
                 </div>
                 <div className="mobile-showcase-img-frame">
-                  <img src={service.image} alt={service.title} className="mobile-showcase-img" />
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="mobile-showcase-img"
+                    width={service.imageWidth}
+                    height={service.imageHeight}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
                 <p className="mobile-showcase-desc">{service.desc}</p>
               </div>

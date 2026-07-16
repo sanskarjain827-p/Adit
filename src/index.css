@@ -2,14 +2,14 @@
   font-family: "Space Grotesk";
   src: url("/fonts/space-grotesk.woff2") format("woff2");
   font-weight: 300 700;
-  font-display: block;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Playfair Display";
   src: url("/fonts/playfair-display.woff2") format("woff2");
   font-weight: 400 900;
-  font-display: block;
+  font-display: swap;
 }
 
 *,
@@ -596,7 +596,8 @@ html:not(.dark) .logo-img {
   align-items: center;
   justify-content: center;
   border-radius: 0px;
-  will-change: width, height, border-radius;
+  transform-origin: center;
+  will-change: transform, border-radius;
 }
 
 .animated-video-frame video {
@@ -1535,4 +1536,3 @@ body.preloader-active {
     background-color: #fff;
   }
 }
-
